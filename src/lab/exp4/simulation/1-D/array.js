@@ -74,6 +74,7 @@ window.view = {
 		for ( i = 0 ; i < inputValue ; i++ ) {
 			var random = Math.floor(Math.random()*15)
 			this.numbers.push(String(random))
+
 		}
 	},
 	getUserInput: function() {
@@ -109,12 +110,12 @@ window.view = {
 		if ( element.length > 0 )
 			document.getElementById('sortingDiv').removeChild(element[0])
 	},
-	createImage: function(left, top) {
+	createImage: function(left, bottom) {
 		var image = document.createElement('img')
 		image.style.position = 'absolute'
 		image.style.left = left + 'px'
-		image.style.top = top  + 'px'
-		image.style.opacity = '0.7'
+		image.style.bottom = bottom  + 'px'
+		image.style.opacity = '0.9'
         image.className = 'arrowImage'
 		document.getElementById('sortingDiv').appendChild(image)
 	},
@@ -152,7 +153,7 @@ window.view = {
 		this.takeInputFromRadioBox()
 		var arraySize = this.getArraySize()
 		var isValidInput = this.validateUserInputs()
-		if ( arraySize === this.numbers.length ) {	
+		if ( arraySize === this.numbers.length ) {
 			if ( isValidInput === false)
 				alert('Enter Numeric Values Only!')
 			else {
@@ -164,10 +165,10 @@ window.view = {
 				this.enableButton('btnNext')
 				this.changeClass( 'btnNext', 'button nextButton' )
 				this.changeClass( 'line1' , 'showDivInRed')
-			} 
+			}
 		}
 		else
-			alert('number of inputs must be equal to the size of the array')	
+			alert('number of inputs must be equal to the size of the array')
 	},
 	setKey: function() {
 		var element = document.getElementById('sortingDiv').childNodes
@@ -177,7 +178,7 @@ window.view = {
 	},
 	swapText: function() {
 		var elements = document.getElementById('sortingDiv').childNodes
-		elements[this.j + 1].firstChild.innerHTML = elements[this.j].firstChild.innerHTML 
+		elements[this.j + 1].firstChild.innerHTML = elements[this.j].firstChild.innerHTML
 		var temp = this.numbers[this.j]
 	},
 	insertKey: function() {
@@ -229,7 +230,7 @@ window.view = {
 				this.nextRedDiv = this.jumpTo('line13')
 				this.highlightNextStep()
 			}
-		}		
+		}
 		else if ( this.lastRedDiv.id === 'line11' ) {
 			this.showImage()
 			this.swapText()
