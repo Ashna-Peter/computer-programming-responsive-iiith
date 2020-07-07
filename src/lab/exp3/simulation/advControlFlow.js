@@ -30,7 +30,7 @@ window.view = {
 	},
 	replaceDiv: function(x, y) {
  		document.getElementById(x).style.display = 'none'
- 		document.getElementById(y).style.display = 'block' 
+ 		document.getElementById(y).style.display = 'block'
  	},
 	getInput: function() {
 		var inputValue = document.getElementById('simpleLoopInput').value
@@ -100,20 +100,20 @@ window.view = {
 	displayLoop: function(loopId, firstStatementId) {
 		var node = document.getElementById(loopId)
 		var allChild = node.childNodes
-		for( i = 1 ; i < allChild.length ; i+=2)	
+		for( i = 1 ; i < allChild.length ; i+=2)
 		{
 			if( allChild[i].id === firstStatementId)
 			this.changeClass(allChild[i].id, 'showDivInRed')
 			else
-			this.changeClass(allChild[i].id, 'showDiv')	
+			this.changeClass(allChild[i].id, 'showDiv')
 		}
 	},
 	hideLoop: function(loopId) {
 		var node = document.getElementById(loopId)
 		var allChild = node.childNodes
-		for( i = 1 ; i < allChild.length ; i+=2)	
+		for( i = 1 ; i < allChild.length ; i+=2)
 		{
-			this.changeClass(allChild[i].id, 'hide')	
+			this.changeClass(allChild[i].id, 'hide')
 		}
 	},
 	clearExecutionSection: function() {
@@ -167,6 +167,11 @@ window.view = {
     	this.clearDivs()
     	var selected_loop = this.getSelectedLoop()
 		var inputValue = document.getElementById('simpleLoopInput').value
+		if (inputValue > 20)
+		{
+			alert("Invalid Input")
+		}
+		else {
 		if (selected_loop === 'for' && inputValue !== '' && !isNaN(model.inp) )
 		{
 			this.displayLoop('forLoopContent', 'codeContentFor1')
@@ -178,7 +183,7 @@ window.view = {
 		if (selected_loop === 'do-while' && inputValue !== '' && !isNaN(model.inp))
 		{
 		 	this.displayLoop('dowhileLoopContent', 'codeContentDoWhile1')
-		}
+		}}
 		this.disableButton('btnStart')
 		this.changeClass( 'btnStart', 'buttonDisable startButton')
 		this.enableButton('btnNext')
@@ -189,7 +194,7 @@ window.view = {
 	},
 	updateModelAndShowResult: function() {
 		if( model.inp >= 1)
-		{	
+		{
 			this.disp = model.fact
 			model.computeNextFact()
 			this.resultDisplay(this.disp, model.inp, model.fact)
@@ -201,7 +206,7 @@ window.view = {
 		this.changeClass(this.nextRedDiv.id, 'showDivInRed')
 	},
 	processSimpleLoopStep: function(loopHeadId) {
-		this.updateModelAndShowResult()					
+		this.updateModelAndShowResult()
 		this.nextRedDiv = this.jumpTo(loopHeadId)
 		this.highlightNextStep()
 	},
@@ -236,17 +241,17 @@ window.view = {
 		this.lastRedDiv = this.getLastHighlightedDiv()
 		this.nextRedDiv = this.getNextDivToHighlight(this.lastRedDiv)
 		if( model.inp === 0 )
-		{	
+		{
 			if( this.lastRedDiv.id !== 'codeContentFor6' && this.lastRedDiv.id !== 'codeContentWhile6' && this.lastRedDiv.id !== 'codeContentDoWhile7' )
-				this.highlightNextStep()		
+				this.highlightNextStep()
 			else
-			{	
-				this.endTheSimpleLoopCode()			
+			{
+				this.endTheSimpleLoopCode()
 				this.changeClass(this.lastRedDiv.id, 'showDiv')
 			}
-		}	
+		}
 		else
-		{	
+		{
 			if( this.lastRedDiv.id === 'codeContentFor4' || this.lastRedDiv.id === 'codeContentWhile4' || this.lastRedDiv.id === 'codeContentDoWhile5')
 			{
 				this.nextRedDiv = this.getNextDivToHighlight(this.nextRedDiv)
@@ -266,7 +271,7 @@ window.view = {
 					this.endTheSimpleLoopCode()
 		 			this.changeClass(this.nextRedDiv.id, 'showDiv')
 		 			model.init()
-				}	
+				}
 				else
 					this.highlightNextStep()
 			}
@@ -286,10 +291,10 @@ window.view = {
 			this.enableButton('nestedNextBtn')
 			this.changeClass( 'nestedNextBtn', 'button nextButton')
 			this.disableButton('nestedLoopInput')
-		}	
-	},	
+		}
+	},
 	processNestedLoopStep: function(stepId) {
-		this.nextRedDiv = this.jumpTo(stepId)	
+		this.nextRedDiv = this.jumpTo(stepId)
 		this.highlightNextStep()
 	},
 	printSpacesInFirstHalf: function() {
@@ -298,7 +303,7 @@ window.view = {
 		this.printSpace()
 	},
 	printSpacesInSecondHalf: function() {
-		this.processNestedLoopStep('codeContentNested16')	
+		this.processNestedLoopStep('codeContentNested16')
 		this.m ++
 		this.printSpace()
 	},
@@ -311,7 +316,7 @@ window.view = {
 		this.highlightNextStep()
 	},
 	displayLocalVariableK: function() {
-		document.getElementById('nestedlocalVariableK').innerHTML = this.j - 1 
+		document.getElementById('nestedlocalVariableK').innerHTML = this.j - 1
 		this.highlightNextStep()
 		this.k++
 		this.j++
@@ -329,17 +334,17 @@ window.view = {
 		 		alert('code running is over')
 		}
 		else
-		{	
+		{
 			if( this.lastRedDiv.id === 'codeContentNested9' && this.j < this.copy )
-				this.printSpacesInFirstHalf()		
+				this.printSpacesInFirstHalf()
 			else if( this.lastRedDiv.id === 'codeContentNested6' && this.j < this.copy )
-				this.displayLocalVariableJ(this.j)		
+				this.displayLocalVariableJ(this.j)
 			else if( this.lastRedDiv.id === 'codeContentNested6' && this.j >= this.copy )
 				this.processNestedLoopStep('codeContentNested10')
 			else if( this.lastRedDiv.id === 'codeContentNested10' )
 			{
 				if( this.k < this.n )
-					this.displayLocalVariableK()				
+					this.displayLocalVariableK()
 				else
 					this.processNestedLoopStep('codeContentNested15')
 			}
@@ -349,7 +354,7 @@ window.view = {
 			{
 				this.printSpace()
 				this.highlightNextStep()
-			}	
+			}
 			else if( this.lastRedDiv.id === 'codeContentNested14' )
 				this.processNestedLoopStep('codeContentNested10')
 			else if( this.lastRedDiv.id === 'codeContentNested15' )
@@ -363,14 +368,14 @@ window.view = {
 			else if( this.lastRedDiv.id === 'codeContentNested4' )
 			{
 				if( this.i <= model.nestedInp )
-					this.displayLocalVariableI()			
+					this.displayLocalVariableI()
 				else
 					this.endTheNestedLoopCode()
 			}
 			else if ( this.lastRedDiv.id === 'codeContentNested21' )
 				this.processNestedLoopStep('codeContentNested4')
 			else
-				this.highlightNextStep()			
+				this.highlightNextStep()
 		}
 	},
 	init: function() {
